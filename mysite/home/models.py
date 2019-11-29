@@ -1,9 +1,14 @@
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel
-from wagtail.core.fields import RichTextField
+
 from wagtail.core.models import Page
+
+from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import PageChooserPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
-# from wagtail.core import blocks
+
+from wagtail.core.fields import RichTextField, StreamField
+
+from streams import blocks
 
 
 class HomePage(Page):
@@ -27,13 +32,14 @@ class HomePage(Page):
         on_delete=models.SET_NULL,
         related_name="+"
     )
-    # content = StreamField(
-    #     [
-    #         ("cta", blocks.CtaBlock()),
-    #     ],
-    #     null=True,
-    #     blank=True,
-    # )
+
+    content = StreamField(
+        [
+            ("cta", blocks.CtaBlock()),
+        ],
+        null=True,
+        blank=True,
+    )
 
     body = RichTextField(blank=True)
 
@@ -44,6 +50,7 @@ class HomePage(Page):
         ImageChooserPanel('banner_image'),
         PageChooserPanel('banner_cta'),
         FieldPanel('body', classname="full"),
+        StreamFieldPanel("content"),
 
     ]
 

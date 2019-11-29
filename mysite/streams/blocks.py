@@ -70,7 +70,7 @@ class CtaBlock(blocks.StructBlock):
     """
     A Simple call to action section
     """
-    Title = blocks.CharBlock(required=True, max_length=60)
+    title = blocks.CharBlock(required=True, max_length=60)
     text = blocks.RichTextBlock(required=True, features=["bold", "italic"])
     button_page = blocks.PageChooserBlock(required=False)
     button_url = blocks.URLBlock(required=False)

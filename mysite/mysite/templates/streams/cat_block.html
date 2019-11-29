@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>{{ self.title }}</h1>
+            {{ self.text }}
+
+
+            {% if self.button_page %}
+                <a href="{{ self.button_page.url }}">{{ self.button_text }}</a>
+            {% elif self.button_url %}
+                <!-- 因为我们的button_page是home，home/models.py中 -->
+                <a href="{{ self.button_url }}">{{ self.button_text }}</a>
+            {% endif %}}
+
+        </div>
+
+    </div>
+
+</div>

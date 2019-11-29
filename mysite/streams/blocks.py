@@ -51,7 +51,8 @@ class RichTextBlock(blocks.RichTextBlock):
 class SimpleRichTextBlock(blocks.RichTextBlock):
     """ RichTextBlock without limited the features (部分的richtext功能)"""
 
-    def __init__(self, required=True, help_text=None, editor='default', features=None, validators=(), **kwargs):
+    def __init__(self, required=True, help_text=None, editor='default',
+                 features=None, validators=(), **kwargs):
         super().__init__(**kwargs)
         self.features = [
             "blod",
@@ -63,3 +64,19 @@ class SimpleRichTextBlock(blocks.RichTextBlock):
         template = "streams/rich_text_block.html"
         icon = "edit"
         label = "Simple RichText"
+
+
+class CtaBlock(blocks.StructBlock):
+    """
+    A Simple call to action section
+    """
+    Title = blocks.CharBlock(required=True, max_length=60)
+    text = blocks.RichTextBlock(required=True, features=["bold", "italic"])
+    button_page = blocks.PageChooserBlock(required=False)
+    button_url = blocks.URLBlock(required=False)
+    button_text = blocks.CharBlock(required=True, default='Learn More', max_length=40)
+
+    class Meta:
+        template = "streams/cat_block.html"
+        icon = "placeholder"
+        label = "call to Action"

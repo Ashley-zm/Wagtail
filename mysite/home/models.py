@@ -1,14 +1,32 @@
 from django.db import models
 
-from wagtail.core.models import Page
+from modelcluster.fields import ParentalKey
+from wagtail.core.models import Page, Orderable
 
 from wagtail.admin.edit_handlers import FieldPanel, StreamFieldPanel
-from wagtail.admin.edit_handlers import PageChooserPanel
+from wagtail.admin.edit_handlers import PageChooserPanel, InlinePanel, MultiFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from wagtail.core.fields import RichTextField, StreamField
 
 from streams import blocks
+
+
+class HomePageCarouselImages(Orderable):
+    """ between 1 and 5 images for home page carousel轮播"""
+
+    page = ParentalKey("home.HomePage", related_name="carousel_images")
+    carousel_images = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name="+"
+    )
+
+    panels = [
+        ImageChooserPanel("carousel_images"),
+    ]
 
 
 class HomePage(Page):
@@ -44,14 +62,21 @@ class HomePage(Page):
     body = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
-
-        FieldPanel('banner_title'),
-        FieldPanel('banner_subtitle'),
-        ImageChooserPanel('banner_image'),
-        PageChooserPanel('banner_cta'),
-        FieldPanel('body', classname="full"),
+        MultiFieldPanel([
+            FieldPanel('banner_title'),
+            FieldPanel('banner_subtitle'),
+            ImageChooserPanel('banner_image'),
+            PageChooserPanel('banner_cta'),
+            FieldPanel('body', classname="full"),
+        ], heading="Banner Options"),
+        # InlinePanel("carousel_images"),这样没有框架，如下所示写入到
+        # 设置Images最少一个最多5个，添加的标签名为 Image
+        MultiFieldPanel([
+            InlinePanel("carousel_images", max_num=5,
+                        min_num=1, label="Image"),
+        ], heading="Carousel Panel"
+        ),
         StreamFieldPanel("content"),
-
     ]
 
     class Meta:

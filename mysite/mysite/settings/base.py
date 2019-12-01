@@ -7,7 +7,7 @@ For more information on this file, see
 https://docs.djangoproject.com/en/2.2/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/2.2/ref/settings/
+https://docs.djangoproject.com/en/2.2/ref/settings/P
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -28,10 +28,12 @@ INSTALLED_APPS = [
     'search',
     'flex',
     'streams',
+    'subscribers',
     'site_settings',
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
     'wagtail.contrib.settings',
+    'wagtail.contrib.modeladmin',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',

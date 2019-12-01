@@ -3,6 +3,8 @@
  {% block content %}
 
  {% image self.banner_image fill-900x400 as img %}
+
+ <!-- Example of on Orderable from home/models.py -->
  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
    <ol class="carousel-indicators">
      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -31,8 +33,30 @@
      <span class="sr-only">Next</span>
    </a>
  </div>
- <!-- cat_block.html中 -->
+ <!-- 一下包含到cat_block.html中 -->
  {% for block in page.content %}
  {% include_block block %}
  {% endfor %}
+ 
+ <div class="container">
+ <!-- 在https://fontawesome.com/中获取的icon -->
+ <p> Site settings:</p>
+ {% if settings.site_settings.SocialMediaSettings.facebook %}
+    <a href="{{ settings.site_settings.SocialMediaSettings.facebook}}">
+       <i class="fab fa-facebook-f"></i>
+    </a>
+ {% endif %} 
+ {% if settings.site_settings.SocialMediaSettings.twitter %}
+    <a href="{{ settings.site_settings.SocialMediaSettings.twitter}}">
+       <i class="fab fa-twitter"></i>
+    </a>
+ {% endif %} 
+ {% if settings.site_settings.SocialMediaSettings.youtube %}
+    <a href="{{ settings.site_settings.SocialMediaSettings.youtube}}">
+       <i class="fab fa-youtube"></i>
+     </a>
+ {% endif %} 
+ <hr>
+ <p>fjijdfi</p>
+</div>
  {% endblock %}

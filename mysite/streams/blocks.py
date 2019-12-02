@@ -18,16 +18,25 @@ class TitleAndTextBlock(blocks.StructBlock):
 class CardBlock(blocks.StructBlock):
     """ Cards with image and text and button(s)"""
 
-    title = blocks.CharBlock(required=True, help_text="Add your title")
+    # title = blocks.CharBlock(required=True, help_text="Add your title")
     cards = blocks.ListBlock(
         blocks.StructBlock(
             [
                 ("image", ImageChooserBlock(requied=True)),
                 ("title", blocks.CharBlock(requied=True, max_length=40)),
                 ("text", blocks.TextBlock(required=True, max_length=200)),
+                ("button_value1", blocks.CharBlock(required=False, max_length=30)),
                 ("button_page", blocks.PageChooserBlock(required=False)),
                 ("button_url", blocks.URLBlock(required=False,
-                                               help_text="If the buttton above selected, that will be used first."))
+                                               help_text="If the buttton above selected, that will be used first.")),
+                ("button_value2", blocks.CharBlock(required=False, max_length=30)),
+                ("button_page2", blocks.PageChooserBlock(required=False)),
+                ("button_url2", blocks.URLBlock(required=False,
+                                                help_text="If the buttton above selected, that will be used first.")),
+                ("button_value3", blocks.CharBlock(required=False, max_length=30)),
+                ("button_page3", blocks.PageChooserBlock(required=False)),
+                ("button_url3", blocks.URLBlock(required=False,
+                                                help_text="If the buttton above selected, that will be used first.")),
             ]
 
         )
@@ -74,9 +83,41 @@ class CtaBlock(blocks.StructBlock):
     text = blocks.RichTextBlock(required=True, features=["bold", "italic"])
     button_page = blocks.PageChooserBlock(required=False)
     button_url = blocks.URLBlock(required=False)
-    button_text = blocks.CharBlock(required=True, default='Learn More', max_length=40)
+    button_text = blocks.CharBlock(
+        required=True, default='Learn More', max_length=40)
 
     class Meta:
         template = "streams/cat_block.html"
         icon = "placeholder"
         label = "call to Action"
+
+
+class LinkStructValue(blocks.StructBlock):
+
+    def url(self):
+        button_page = self.get('button_page')
+        button_url = self.get('button_url')
+        if button_page:
+            return button_url
+        else:
+            return button_page
+
+        return None
+
+
+# class ButtonBlock(blocks.StructBlock):
+#     button_page = blocks.PageChooserBlock(
+#         required=False, help_text="If selected, this url will be used first")
+#     button_url = blocks.URLBlock(
+#         required=False, help_text="If added, this url will be used secondarily to the button page")
+
+#     def get_context(self, request, *args, **kwargs):
+#         context = super().get_context(request, *args, **kwargs)
+#         context['latest_posts'] = BlogDetailPage.objects.live().public()[:3]
+#         return context
+
+#     class Meta:
+#         template = "streams/button_block.html"
+#         icon = "placeholder"
+#         label = "Simple Button"
+#         value_class = LinkStructValue

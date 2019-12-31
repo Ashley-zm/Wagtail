@@ -1,25 +1,61 @@
 {% load wagtailimages_tags %}
+{% load static %}
+{% block head-extra %}
+<!-- <link type="text/css" rel="stylesheet" href="{% static 'css\card_block.css' %}" /> -->
+<style>
+    .card-img-overlay {
+    background: rgba(0,0,0,0.2);
+    /* margin-top: 28%; */
+    top: auto !important;
+    height: 60%;
+    transition: height 0.35s;
+    transition-timing-function: ease-in;
+    overflow: hidden;
+}
+.card:hover .card-img-overlay {
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+.box{
+    width: 300px;
+    height: 50px;
+    display: none;
+    transition: height 0.35s;
+    transition-timing-function: ease-in;
+}
+.card:hover .box{
+    display: block;
+}
 
-<div class="container mb-sm-5 mt-sm-5">
+</style>
+{% endblock head-extra %}
+
+<div class="container">
     <h1 class="text-center mb-sm-5 ">{{ self.title }}</h1>
-    <div class="card-deck">
+    <div class="card-deck" >
         {% for card in self.cards %}
         {% image card.image fill-300x200 as img%}
         <div class="card">
             <img src="{{ img.url }}" class="card-img-top" alt="">
-            <div class="card-body">
-                <h5 class="card-title">{{card.title}}</h5>
-                <p class="card-text">{{card.text}}</p>
-                {% if card.button_page%}
-                <a href="{{card.button_page.url}}" class="btn btn-primary">
-                    Learn More (internal)
-                </a>
-                {% elif card.button_url %}
-                <a href="{{card.button_page.url}}" class="btn btn-primary">
-                    Learn More (external)
-                </a>
-                {% endif%}
-            </div>
+                <div id="card" class="card-img-overlay" >
+                    <h5 class="card-title" style="text-align: center;">{{card.title}}</h5>
+                    <P class="card-text">
+                        <h4 style="display: inline;">16,907,779</h4>&nbsp;&nbsp;COMP
+                    </P>
+                    <p class="card-text">{{card.text}}</p>
+                    <div class="box">
+                        <a href="{{card.button_page.url}}" class="btn btn-primary">
+                                {{card.button_value1}}
+                            </a>
+                            <a href="{{card.button_page2.url}}" class="btn btn-primary">
+                                {{card.button_value2}}
+                            </a>
+                            <a href="{{card.button_page3.url}}" class="btn btn-primary">
+                                {{card.button_value3}}
+                            </a>
+                        
+                    </div>
+                </div>
         </div>
 
         {% endfor %}

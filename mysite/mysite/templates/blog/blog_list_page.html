@@ -1,9 +1,15 @@
 {% extends "base.html" %}
 {% load wagtailimages_tags %}
+{% load wagtailimages_tags wagtailroutablepage_tags %}
 
 {% block body_class %}template-blogindexpage{% endblock %}
 
 {% block content %}
+
+    /latest/latest_posts对应models.py（blog）中的name值
+    <a href="{% routablepageurl page "latest_posts" %}">View Latest Posts </a>
+    <h2>special link is {{ a_special_link}}</h2>
+
 <div class="container">
     {% for post in  posts %}
     <div class="row">

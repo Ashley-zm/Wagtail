@@ -13,7 +13,6 @@ from wagtail.admin.edit_handlers import (
     PageChooserPanel,
 )
 from wagtail.images.edit_handlers import ImageChooserPanel
-
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.fields import RichTextField, StreamField
 

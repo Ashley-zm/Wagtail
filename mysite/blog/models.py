@@ -34,7 +34,7 @@ class BlogListPage(RoutablePageMixin, Page):
         # context["regular_context_var"] = "I like the page"
         context["a_special_link"] = self.reverse_subpage('latest_posts')
         return context
-//添加路径
+# 添加路径
     @route(r'^latest/$', name="latest_posts")
     def latest_blog_posts_only_shows_last_5(self, request, *args, **kwargs):
         context = self.get_context(request, *args, **kwargs)

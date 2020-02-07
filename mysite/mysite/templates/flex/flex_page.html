@@ -2,12 +2,13 @@
 {% load wagtailcore_tags %}
 
 {% block content %}
+<!-- 以下是页面中About的内容 flex models.py中 -->
 <div class="container">
     <div>
         <h3 style="text-align: center;">{{ self.subtitle }} is the subtitle</h3>
     </div>
 </div>
-
+<!-- 以下嵌入了/templatese/streams 的所有页面 -->
     {% for block in page.content %}
         {% include_block block %}
     {% endfor %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load wagtailimages_tags wagtailcore_tags %}
+{% load static %}
+
+{% block head-extra %}
+<script src="https://marvinjs.chemicalize.com/v1/908fc38059bf4eab8f69a0b659858c34/client-settings.js"></script>
+<script src="https://marvinjs.chemicalize.com/v1/client.js"></script>
+<script>
+    ChemicalizeMarvinJs.createEditor("#marvin-test").then(function (marvin) {
+        function showDialog() {
+            marvin.exportStructure("smiles").then(function (smiles) {
+                document.getElementById("testInp").value = smiles;
+                alert("Current molecule: " + smiles);
+                return smiles;
+            });
+        }
+        marvin.importStructure("name", "benzene");
+        document.getElementById("btn-getmol").onclick = function () {
+            showDialog();
+
+        }
+        // document.getElementById("btn-getmol").addEventListener("Find", showDialog);
+
+
+    });
+</script>
+{% endblock head-extra %}
+
+
+{% block content %}
+<div class="container">
+    <div>
+        <h3 style="text-align: center;">{{ self.subtitle }} is the subtitle</h3>
+    </div>
+<form id="testForm" method="POST">
+    <div id="marvin-test" style="width: 600px; height: 480px"></div>
+    <button id="btn-getmol" type="button">Find</button>
+    <input id="testInp" type="hidden" />
+</form>
+
+</div>
+
+
+{% endblock %}

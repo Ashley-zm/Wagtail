@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% load wagtailimages_tags %}
 
-<!-- {% block body_class %}template-blogindexpage{% endblock %} -->
+{% block body_class %}template-blogindexpage{% endblock %}
 
 {% block content %}
 {% image self.blog_image fill-1200x300 as banner %}
+这是子
 <img src="{{ banner.url }}" alt="{{ banner.alt }}" style="width: 100%;">
 <div class="container mt-5 mb-5">
     <div class="text-center">

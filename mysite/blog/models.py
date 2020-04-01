@@ -32,7 +32,7 @@ class BlogListPage(RoutablePageMixin, Page):
         context = super().get_context(request, *args, **kwargs)
         context["posts"] = BlogDetailPage.objects.live().public()
         # context["regular_context_var"] = "I like the page"
-        # context["a_special_link"] = self.reverse_subpage('latest_posts')
+        context["a_special_link"] = self.reverse_subpage('latest_posts')  # f
         return context
 # 添加路径
     @route(r'^latest/$', name="latest_posts")

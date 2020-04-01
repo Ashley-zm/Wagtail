@@ -1,0 +1,111 @@
+{% load wagtailimages_tags %}
+{% load static %}
+{% block head-extra %}
+<!-- <link type="text/css" rel="stylesheet" href="{% static 'css\card_block.css' %}" /> -->
+<style>
+    .card-img-overlay {
+        background: rgba(0, 0, 0, 0.2);
+        /* margin-top: 28%; */
+        top: auto !important;
+        height: 60%;
+        transition: height 0.35s;
+        transition-timing-function: ease-in;
+        overflow: hidden;
+    }
+
+    .card:hover .card-img-overlay {
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .box {
+        width: 300px;
+        height: 50px;
+        display: none;
+        transition: height 0.35s;
+        transition-timing-function: ease-in;
+    }
+
+    .card:hover .box {
+        display: block;
+    }
+
+    ul li {
+        list-style: none;
+        float: left;
+    }
+</style>
+{% endblock head-extra %}
+<div class="container">
+    <form id="getmol" action="" method="POST" role="form">
+        {% csrf_token %}
+        <h1 class="text-center mb-sm-5 ">{{ self.title }}</h1>
+        <div class="card-deck">
+            {% for card in self.cards %}
+            {% image card.image fill-300x200 as img%}
+            <div class="card">
+                <img src="{{ img.url }}" class="card-img-top" alt="">
+                <div id="card" class="card-img-overlay">
+                    <h5 class="card-title" style="text-align: center;">{{card.title}}</h5>
+                    <P class="card-text">
+                        <h4 style="display: inline;">16,907,779</h4>&nbsp;&nbsp;COMP
+                    </P>
+                    <p class="card-text">{{card.text}}</p>
+                    <div class="box">
+                        <ul>
+                            <li><a href="#" class="btn btn-primary" id="btnn">
+                                    {{card.button_value1}}
+                                </a></li>
+                            <li><a href="#" class="btn btn-primary">
+                                    {{card.button_value2}}
+                                </a></li>
+                            <li><a href="#" class="btn btn-primary">
+                                    {{card.button_value3}}
+                                </a></li>
+                        </ul>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </form>
+</div>
+{% comment %} <a href="{% url 'download' %}">点击下载文档</a> {% endcomment %}
+
+{% comment %} <a href="{% url 'zip_download' %}">点击下载zip文档</a> {% endcomment %}
+<a href="{% url 'file_down' %}">点击下载file_down文档</a>
+{% comment %} <a href="{% url 'zip_download' %}">点击下载zip文档</a> {% endcomment %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+    // function toSub() {
+    //     var txt = document.getElementById("btnn");
+    //     var input1 = $("<input>").attr("type", "hidden").attr("name", "filename").val(txt);
+    //     alert(txt.innerHTML);
+    //     $('#getmol').append($(input1));
+    //     $("#getmol").submit();
+    //     txt.href = "{% url 'file_down' %}"
+    // }
+
+    $("a").click(function () {
+        $(this). = "tx"
+        // this.attr("id", "123")
+        var txt = $("#tx").innerText;
+        var input1 = $("<input>").attr("type", "hidden").attr("name", "filename").val(txt);
+        alert(txt);
+        $('#getmol').append($(input1));
+        $("#getmol").submit();
+        $("#tx").href = "{% url 'file_down' %}"
+        $(this).idName = ""
+        //此处写事件函数
+
+    })
+
+    // document.getElementById("btnn").onclick = function () {
+    //     submit();
+    // }
+
+</script>

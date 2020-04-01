@@ -6,16 +6,16 @@
 
 {% block content %}
 
-    <!-- /latest/latest_posts对应models.py（blog）中的name值
-    <a href="{% routablepageurl page "latest_posts" %}">View Latest Posts </a>
-    <h2>special link is {{ a_special_link}}</h2> -->
+/latest/latest_posts对应models.py（blog）中的name值
+<a href="{% routablepageurl page "latest_posts" %}">View Latest Posts </a>
+<h2>special link is {{ a_special_link}}</h2>
 
 <div class="container">
-    <!-- {% for post in  posts %} -->
+    {% for post in  posts %}
     <div class="row">
         <div class="col-sm-4">
             这是父
-            <!-- {% image post.blog_image fill-250x250 as blog_img %} -->
+            {% image post.blog_image fill-250x250 as blog_img %}
             <a href="{{post.url}}">
                 <img src="{{blog_img.url}}" alt="{{blog_img.alt}}">
             </a>
@@ -23,12 +23,12 @@
         <div class="co-sm-8">
             <a href="{{post.url}}">
                 <button>gg</button>
-                <!-- {{post.custom_title}} -->
+                {{post.custom_title}}
             </a>
         </div>
     </div>
 
-    <!-- {% endfor %} -->
+    {% endfor %}
 
 </div>
 

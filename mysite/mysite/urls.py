@@ -3,14 +3,14 @@ from sys import path
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
-from  django.urls import path
+from django.urls import path
 
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from search import views as search_views
-
+from flex import views as flex_views
 
 urlpatterns = [
     url(r'^django-admin/', admin.site.urls),
@@ -19,7 +19,13 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
 
     url(r'^search/$', search_views.search, name='search'),
-
+    # 下载 API 接口文档
+    # path('streams/card_block/', flex_views.zip_download,
+    #      name="zip_download"),
+    # path('streams/card_block/', flex_views.DownLoadApiView,
+    #      name="download"),
+    path('streams/card_block/', flex_views.file_down,
+         name="file_down"),
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
@@ -36,7 +42,8 @@ if settings.DEBUG:
 
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
 
     # 添加的debug_toolbar url
     import debug_toolbar

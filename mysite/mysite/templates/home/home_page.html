@@ -1,62 +1,62 @@
- {% extends "base.html"%}
- {% load wagtailcore_tags  wagtailimages_tags%}
- {% block content %}
+{% extends "base.html"%}
+{% load wagtailcore_tags  wagtailimages_tags%}
+{% block content %}
 
- {% image self.banner_image fill-900x400 as img %}
+{% image self.banner_image fill-900x400 as img %}
 
- <!-- Example of on Orderable from home/models.py -->
- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-   <ol class="carousel-indicators">
-     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-   </ol>
-   <div class="carousel-inner">
-     {% for loop_cycle in self.carousel_images.all  %}
-     {% image loop_cycle.carousel_images fill-900x400 as img %}
-     <div class="carousel-item{% if forloop.counter == 1 %} active {% endif %}">
-       <img src="{{ img.url }}" class="d-block w-100" alt="{{ img.alt }}"
-         style="height: 465px; position:center center;color:#111!important">
-       <div class="carousel-caption d-none d-md-block">
-         <h5>这是一种享受</h5>
-         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-       </div>
-     </div>
-     {% endfor %}
-   </div>
-   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-     <span class="sr-only">Previous</span>
-   </a>
-   <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-     <span class="sr-only">Next</span>
-   </a>
- </div>
- <!-- 一下包含到cat_block.html中 -->
- {% for block in page.content %}
- {% include_block block %}
- {% endfor %}
- 
- <div class="container">
- <!-- 在https://fontawesome.com/中获取的icon -->
- <p> Site settings:</p>
- {% if settings.site_settings.SocialMediaSettings.facebook %}
-    <a href="{{ settings.site_settings.SocialMediaSettings.facebook}}">
-       <i class="fab fa-facebook-f"></i>
-    </a>
- {% endif %} 
- {% if settings.site_settings.SocialMediaSettings.twitter %}
-    <a href="{{ settings.site_settings.SocialMediaSettings.twitter}}">
-       <i class="fab fa-twitter"></i>
-    </a>
- {% endif %} 
- {% if settings.site_settings.SocialMediaSettings.youtube %}
-    <a href="{{ settings.site_settings.SocialMediaSettings.youtube}}">
-       <i class="fab fa-youtube"></i>
-     </a>
- {% endif %} 
- <hr>
- <p>fjijdfi</p>
+<!-- Example of on Orderable from home/models.py -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div class="carousel-inner">
+    {% for loop_cycle in self.carousel_images.all  %}
+    {% image loop_cycle.carousel_images fill-900x300 as img %}
+    <div class="carousel-item{% if forloop.counter == 1 %} active {% endif %}">
+      <img src="{{ img.url }}" class="d-block w-100" alt="{{ img.alt }}"
+        style="height: 465px; position:center center;color:#111!important">
+      <div class="carousel-caption d-none d-md-block">
+        <h5>这是一种享受</h5>
+        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
- {% endblock %}
+<!-- 一下包含到cat_block.html中 -->
+{% for block in page.content %}
+{% include_block block %}
+{% endfor %}
+
+<div class="container">
+  <!-- 在https://fontawesome.com/中获取的icon -->
+  <p> Site settings:</p>
+  {% if settings.site_settings.SocialMediaSettings.facebook %}
+  <a href="{{ settings.site_settings.SocialMediaSettings.facebook}}">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+  {% endif %}
+  {% if settings.site_settings.SocialMediaSettings.twitter %}
+  <a href="{{ settings.site_settings.SocialMediaSettings.twitter}}">
+    <i class="fab fa-twitter"></i>
+  </a>
+  {% endif %}
+  {% if settings.site_settings.SocialMediaSettings.youtube %}
+  <a href="{{ settings.site_settings.SocialMediaSettings.youtube}}">
+    <i class="fab fa-youtube"></i>
+  </a>
+  {% endif %}
+  <hr>
+  <p>fjijdfi</p>
+</div>
+{% endblock %}

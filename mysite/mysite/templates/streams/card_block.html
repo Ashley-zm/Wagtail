@@ -4,61 +4,226 @@
 <!-- <link type="text/css" rel="stylesheet" href="{% static 'css\card_block.css' %}" /> -->
 <style>
     .card-img-overlay {
-    background: rgba(0,0,0,0.2);
-    /* margin-top: 28%; */
-    top: auto !important;
-    height: 60%;
-    transition: height 0.35s;
-    transition-timing-function: ease-in;
-    overflow: hidden;
-}
-.card:hover .card-img-overlay {
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-}
-.box{
-    width: 300px;
-    height: 50px;
-    display: none;
-    transition: height 0.35s;
-    transition-timing-function: ease-in;
-}
-.card:hover .box{
-    display: block;
-}
+        background: rgba(0, 0, 0, 0.2);
+        /* margin-top: 28%; */
+        top: auto !important;
+        height: 60%;
+        transition: height 0.35s;
+        transition-timing-function: ease-in;
+        overflow: hidden;
+    }
 
+    .card {
+        margin-right: 0px !important;
+        margin-bottom: 26px !important;
+        margin-left: 0px !important;
+        position: relative;
+    }
+
+    .card-img-overlay {
+        position: absolute;
+    }
+
+    .card:hover .card-img-overlay {
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .box {
+        width: 100%;
+        height: 25%;
+        display: none;
+        transition: height 0.35s;
+        transition-timing-function: ease-in;
+    }
+
+    .card:hover .box {
+        display: block;
+    }
+
+    ul li {
+        list-style: none;
+        float: left;
+    }
+
+    a {
+        display: block;
+    }
 </style>
 {% endblock head-extra %}
-
 <div class="container">
+    <!-- <form id="getmol" action="" method="POST" role="form"> -->
+    <!-- {% csrf_token %} -->
     <h1 class="text-center mb-sm-5 ">{{ self.title }}</h1>
-    <div class="card-deck" >
+    <div class="card-deck">
         {% for card in self.cards %}
         {% image card.image fill-300x200 as img%}
-        <div class="card">
-            <img src="{{ img.url }}" class="card-img-top" alt="">
-                <div id="card" class="card-img-overlay" >
-                    <h5 class="card-title" style="text-align: center;">{{card.title}}</h5>
+        <div class="col-md-4 column">
+            <div class="card">
+                <img src="{{ img.url }}" class="card-img-top" alt="">
+                <!-- <img src="/media/images/crust-delicious-dinner-dish-568370.2e16d0ba.fill-300x200.jpg"
+                    class="card-img-top" alt=""> -->
+                <div id="card" class="card-img-overlay">
+                    <!-- <h5 class="card-title" style="text-align: center;">{{card.title}}</h5> -->
+                    <h5 class="card-title" style="text-align: center;margin-top: 17%; margin-bottom: 7%;">{{card.title}}
+                    </h5>
                     <P class="card-text">
-                        <h4 style="display: inline;">16,907,779</h4>&nbsp;&nbsp;COMP
+                        <!-- <h4 style="display: inline;">16,907,779</h4>&nbsp;&nbsp;COMP -->
                     </P>
-                    <p class="card-text">{{card.text}}</p>
-                    <div class="box">
-                        <a href="{{card.button_page.url}}" class="btn btn-primary">
-                                {{card.button_value1}}
-                            </a>
-                            <a href="{{card.button_page2.url}}" class="btn btn-primary">
-                                {{card.button_value2}}
-                            </a>
-                            <a href="{{card.button_page3.url}}" class="btn btn-primary">
-                                {{card.button_value3}}
-                            </a>
-                        
+                    <!-- <p class="card-text">{{card.text}}</p> -->
+                    <div class="box" style="text-align: center;">
+                        <a onclick="download_test1(this)" class="btn btn-primary">
+                            {{card.button_value1}}
+                        </a>
+                        <a onclick="download_test1(this)" class="btn btn-primary">
+                            {{card.button_value2}}
+                        </a>
+                        <a onclick="download_test1(this)" class="btn btn-primary">
+                            {{card.button_value3}}
+                        </a>
                     </div>
                 </div>
+            </div>
         </div>
-
         {% endfor %}
     </div>
-
+    <!-- <input id="in" type="hidden" name="filename" value="2D" /> -->
+    <!-- </form> -->
 </div>
+{% comment %} <a href="{% url 'download' %}">点击下载文档</a> {% endcomment %}
+
+{% comment %} <a href="{% url 'zip_download' %}">点击下载zip文档</a> {% endcomment %}
+
+{% comment %} <a href="{% url 'file_down' %}{{'2D.zip'}}">点击下载file_down文档</a> {% endcomment %}
+{% comment %} <a href="{% url 'file_down' %}">点击下载file_down文档</a> {% endcomment %}
+{% comment %}<a href="{% url 'file_down' %} /DrugSpaceX-10S.smi.tar.gz">点击下载file_down文档</a>
+<hr />
+<span>hh</span><a style=" width: 10px;height: 20px;background-color: coral;" onclick="download_test1(this)"></a>
+
+{% comment %} <a href="{% url 'zip_download' %}">点击下载zip文档</a> {% endcomment %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+
+    // function toSub() {
+    //     var txt = document.getElementById("btnn");
+    //     var input1 = $("<input>").attr("type", "hidden").attr("name", "filename").val(txt);
+    //     alert(txt.innerHTML);
+    //     $('#getmol').append($(input1));
+    //     $("#getmol").submit();
+    //     txt.href = "{% url 'file_down' %}"
+    // }
+    $(document).ready(function () {
+        // $("a:empty").hide();
+        // console.log($("a").text());
+        // if ($("a").text()) {
+        //     $("a").css("display", "none");
+
+        // }
+        $('a').each(function () {
+            var txt = $(this).text();
+            var str = $.trim(txt);
+            if (str == "") {
+                $(this).css("display", "none");
+            }
+            // let Ahref = $(this).html() + "#article";
+            // $(this).attr("href", Ahref);
+        });
+    })
+
+    function download_test1(obj) {
+        // alert($(obj).text());
+        // console.log($(obj).text());
+        var tx = $(obj).text();
+        var str = $.trim(tx);
+        var file = "{% url 'file_down' %}";
+        alert(file);
+        console.log(str);
+        console.log(typeof str);
+        // switch (str) {
+        //     case "D":
+        //         $(obj).attr("href", "/media/DrugSpaceX-D.tar.gz")
+        //         break;
+        //     case "S":
+        //         $(obj).attr("href", "/media/DrugSpaceX-S-Sample.tar.gz")
+        //         break;
+        //     case "A":
+        //         $(obj).attr("href", "/media/DrugSpaceX-Total.smi.tar.gz")
+        //         break;
+        //     case "DSX-EL":
+        //         $(obj).attr("href", "/media/DrugSpaceX-EL.smi.tar.gz")
+        //         break;
+        //     case "DSX-DL":
+        //         $(obj).attr("href", "/media/DrugSpaceX-DL.smi.tar.gz")
+        //         break;
+        //     case "DSX-LL":
+        //         $(obj).attr("href", "/media/DrugSpaceX-LL.smi.tar.gz")
+        //         break;
+        //     case "DSX-FL":
+        //         $(obj).attr("href", "/media/DrugSpaceX-FL.smi.tar.gz")
+        //         break;
+        //     case "DSX-10%":
+        //         // $(obj).attr("href", "/media/DrugSpaceX-10S.smi.tar.gz")
+        //         $(obj).attr("href", "/E:/GitHub/DrugSpaceX-10S.smi.tar.gz")
+        //         break;
+        //     default:
+        //         break;
+        // }
+
+    }
+    // $("a").click(function () {
+    //     $(document).ready(function () {
+    //         $('.btn').click(function () {
+    //             alert($(this).innerText);
+    //         })
+    //     })
+    // });
+
+    // $(".box").click(function (e) {
+    //     var id = $(e.target).attr("data");
+    //     alert(id)
+    // });
+    function toSub(obj) {
+        // $(this).attr("id", "tx")
+        // var txt = $(this).innerText;
+        // var input1 = $("<input>").attr("type", "hidden").attr("name", "filename").val(txt);
+        // alert(txt);
+        // $('#in').val = '2D';
+        // $('#getmol').append($(input1));
+        // $("#getmol").submit();
+        // $('a').attr("id", "at")
+        alert($('#obj').html());
+        $('#obj').href = "media/DrugSpaceX-Drug-set-smiles.smi.tar.gz";
+
+        // $(this).attr("id", " ");
+        //此处写事件函数
+
+    }
+
+    // document.getElementById("btnn").onclick = function () {
+    //     submit();
+    // }
+    $('a').on("mousedown", function (d, i) {
+        selectId = dataset[i][2];
+        $.ajax({
+            url: "/line",
+            data: JSON.stringify({    // JSON格式封装数据
+                id: selectId
+                // age: xx
+            }),
+            // data:data,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            contentType: 'application/json',
+            type: "POST",
+            traditional: true,    // 需要传递列表、字典时加上这句
+            success: function (value) {//接收成功反馈
+                var lineIndividual = JSON.parse(value['lineIndividual']);
+                var lineCluster = JSON.parse(value['lineCluster']);
+                // var lineIndividual = eval('(' + value['lineIndividual']+ ')');
+                // var lineCluster = eval('(' + value['lineCluster']+ ')');
+                lines(lineIndividual, lineCluster);
+            },
+            fail: function (result) {
+            }
+        });
+    })
+</script>

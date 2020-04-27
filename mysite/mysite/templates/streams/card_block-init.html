@@ -53,13 +53,13 @@
                     <p class="card-text">{{card.text}}</p>
                     <div class="box">
                         <ul>
-                            <li><a href="#" class="btn btn-primary" id="btnn">
+                            <li><a onclick="download_test1(this)" href="#" class="btn btn-primary" id="btnn">
                                     {{card.button_value1}}
                                 </a></li>
-                            <li><a href="#" class="btn btn-primary">
+                            <li><a onclick="download_test1(this)" href="#" class="btn btn-primary">
                                     {{card.button_value2}}
                                 </a></li>
-                            <li><a href="#" class="btn btn-primary">
+                            <li><a onclick="download_test1(this)" href="#" class="btn btn-primary">
                                     {{card.button_value3}}
                                 </a></li>
                         </ul>
@@ -90,19 +90,19 @@
     //     txt.href = "{% url 'file_down' %}"
     // }
 
-    $("a").click(function () {
-        $(this). = "tx"
-        // this.attr("id", "123")
-        var txt = $("#tx").innerText;
-        var input1 = $("<input>").attr("type", "hidden").attr("name", "filename").val(txt);
-        alert(txt);
-        $('#getmol').append($(input1));
-        $("#getmol").submit();
-        $("#tx").href = "{% url 'file_down' %}"
-        $(this).idName = ""
-        //此处写事件函数
+    // $("a").click(function () {
+    //     $(this). = "tx"
+    //     // this.attr("id", "123")
+    //     var txt = $("#tx").innerText;
+    //     var input1 = $("<input>").attr("type", "hidden").attr("name", "filename").val(txt);
+    //     alert(txt);
+    //     $('#getmol').append($(input1));
+    //     $("#getmol").submit();
+    //     $("#tx").href = "{% url 'file_down' %}"
+    //     $(this).idName = ""
+    //     //此处写事件函数
 
-    })
+    // })
 
     // document.getElementById("btnn").onclick = function () {
     //     submit();

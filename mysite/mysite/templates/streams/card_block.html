@@ -71,14 +71,14 @@
                         <!-- <h4 style="display: inline;">16,907,779</h4>&nbsp;&nbsp;COMP -->
                     </P>
                     <!-- <p class="card-text">{{card.text}}</p> -->
-                    <div class="box" style="text-align: center;">
-                        <a onclick="download_test1(this)" class="btn btn-primary">
+                    <div class="box" style="text-align: center;" id="box1">
+                        <a onclick="fn(this);" class="btn btn-primary">
                             {{card.button_value1}}
                         </a>
-                        <a onclick="download_test1(this)" class="btn btn-primary">
+                        <a class="btn btn-primary">
                             {{card.button_value2}}
                         </a>
-                        <a onclick="download_test1(this)" class="btn btn-primary">
+                        <a class="btn btn-primary">
                             {{card.button_value3}}
                         </a>
                     </div>
@@ -100,9 +100,31 @@
 <hr />
 <span>hh</span><a style=" width: 10px;height: 20px;background-color: coral;" onclick="download_test1(this)"></a>
 
-{% comment %} <a href="{% url 'zip_download' %}">点击下载zip文档</a> {% endcomment %}
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+{% comment %} <a href="{% url 'zip_download' %}">点击下载zip文档</a>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>{% endcomment %}
 <script>
+    window.onload = function () {
+        var a = document.getElementById('box1').querySelectorAll('a');
+        console.log(a);
+        function fn(obj) {
+            for (let i = 1; i < a.length; i++) {
+                obj[i].addEventListener('click', (event) => {
+                    // 箭头不存在this指向问题
+                    console.log(this);
+                    console.log(event.type);
+                }, false);
+            }
+        }
+        fn.call(a)
+    }
+
+
+
+
+
+
+
+
 
     // function toSub() {
     //     var txt = document.getElementById("btnn");
@@ -112,33 +134,33 @@
     //     $("#getmol").submit();
     //     txt.href = "{% url 'file_down' %}"
     // }
-    $(document).ready(function () {
-        // $("a:empty").hide();
-        // console.log($("a").text());
-        // if ($("a").text()) {
-        //     $("a").css("display", "none");
+    // $(document).ready(function () {
+    //     // $("a:empty").hide();
+    //     // console.log($("a").text());
+    //     // if ($("a").text()) {
+    //     //     $("a").css("display", "none");
 
-        // }
-        $('a').each(function () {
-            var txt = $(this).text();
-            var str = $.trim(txt);
-            if (str == "") {
-                $(this).css("display", "none");
-            }
-            // let Ahref = $(this).html() + "#article";
-            // $(this).attr("href", Ahref);
-        });
-    })
+    //     // }
+    //     $('a').each(function () {
+    //         var txt = $(this).text();
+    //         var str = $.trim(txt);
+    //         if (str == "") {
+    //             $(this).css("display", "none");
+    //         }
+    //         // let Ahref = $(this).html() + "#article";
+    //         // $(this).attr("href", Ahref);
+    //     });
+    // })
 
-    function download_test1(obj) {
-        // alert($(obj).text());
-        // console.log($(obj).text());
-        var tx = $(obj).text();
-        var str = $.trim(tx);
-        var file = "{% url 'file_down' %}";
-        alert(file);
-        console.log(str);
-        console.log(typeof str);
+    // function download_test1(obj) {
+    //     // alert($(obj).text());
+    //     // console.log($(obj).text());
+    //     var tx = $(obj).text();
+    //     var str = $.trim(tx);
+    //     var file = "{% url 'file_down' %}";
+    //     alert(file);
+    //     console.log(str);
+    //     console.log(typeof str);
         // switch (str) {
         //     case "D":
         //         $(obj).attr("href", "/media/DrugSpaceX-D.tar.gz")
@@ -169,7 +191,7 @@
         //         break;
         // }
 
-    }
+    // }
     // $("a").click(function () {
     //     $(document).ready(function () {
     //         $('.btn').click(function () {
@@ -182,7 +204,7 @@
     //     var id = $(e.target).attr("data");
     //     alert(id)
     // });
-    function toSub(obj) {
+    // function toSub(obj) {
         // $(this).attr("id", "tx")
         // var txt = $(this).innerText;
         // var input1 = $("<input>").attr("type", "hidden").attr("name", "filename").val(txt);
@@ -191,39 +213,35 @@
         // $('#getmol').append($(input1));
         // $("#getmol").submit();
         // $('a').attr("id", "at")
-        alert($('#obj').html());
-        $('#obj').href = "media/DrugSpaceX-Drug-set-smiles.smi.tar.gz";
+        // alert($('#obj').html());
+        // $('#obj').href = "media/DrugSpaceX-Drug-set-smiles.smi.tar.gz";
 
         // $(this).attr("id", " ");
         //此处写事件函数
 
-    }
+    // }
 
     // document.getElementById("btnn").onclick = function () {
     //     submit();
     // }
-    $('a').on("mousedown", function (d, i) {
-        selectId = dataset[i][2];
-        $.ajax({
-            url: "/line",
-            data: JSON.stringify({    // JSON格式封装数据
-                id: selectId
-                // age: xx
-            }),
-            // data:data,
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-            contentType: 'application/json',
-            type: "POST",
-            traditional: true,    // 需要传递列表、字典时加上这句
-            success: function (value) {//接收成功反馈
-                var lineIndividual = JSON.parse(value['lineIndividual']);
-                var lineCluster = JSON.parse(value['lineCluster']);
-                // var lineIndividual = eval('(' + value['lineIndividual']+ ')');
-                // var lineCluster = eval('(' + value['lineCluster']+ ')');
-                lines(lineIndividual, lineCluster);
-            },
-            fail: function (result) {
-            }
-        });
-    })
+    // $('a').on("mousedown", function (d, i) {
+    //     selectId = dataset[i][2];
+    //     $.ajax({
+    //         url: "/line",
+    //         data: JSON.stringify({    // JSON格式封装数据
+    //             id: selectId
+    //             // age: xx
+    //         }),
+    //         // data:data,
+    //         csrfmiddlewaretoken: '{{ csrf_token }}',
+    //         contentType: 'application/json',
+    //         type: "POST",
+    //         traditional: true,    // 需要传递列表、字典时加上这句
+    //         success: function (value) {//接收成功反馈
+    //             lines(lineIndividual, lineCluster);
+    //         },
+    //         fail: function (result) {
+    //         }
+    //     });
+    // })
 </script>
